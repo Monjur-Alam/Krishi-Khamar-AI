@@ -1,0 +1,2 @@
+/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/.cxx/debug/2f636d2g/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/.cxx/debug/2f636d2g/arm64-v8a/CMakeFiles/rebuild_cache.dir
