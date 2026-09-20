@@ -21,179 +21,249 @@
 17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 17-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:3:5-79
 17-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:3:22-76
-18    <!--
-19 Required to query activities that can process text, see:
-20         https://developer.android.com/training/package-visibility and
-21         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
-22
-23         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
-24    -->
-25    <queries>
-25-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:43:5-48:15
-26        <intent>
-26-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:44:9-47:18
-27            <action android:name="android.intent.action.PROCESS_TEXT" />
-27-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:45:13-72
-27-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:45:21-70
+18    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+18-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:5:5-71
+18-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:5:22-68
+19    <uses-permission android:name="android.permission.CAMERA" />
+19-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:6:5-65
+19-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:6:22-62
+20    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+20-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:7:5-76
+20-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:7:22-73
+21    <uses-permission
+21-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:8:5-107
+22        android:name="android.permission.READ_EXTERNAL_STORAGE"
+22-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:8:22-77
+23        android:maxSdkVersion="32" />
+23-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:8:78-104
+24    <!--
+25 Required to query activities that can process text, see:
+26         https://developer.android.com/training/package-visibility and
+27         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 28
-29            <data android:mimeType="text/plain" />
-29-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:46:13-50
-29-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:46:19-48
-30        </intent>
-31    </queries>
-32
-33    <permission
-33-->[androidx.core:core:1.16.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/9e6f014ad031effa41979a9e4fa0c912/transformed/core-1.16.0/AndroidManifest.xml:22:5-24:47
-34        android:name="com.krishikhamar.ai.krishikhamar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-34-->[androidx.core:core:1.16.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/9e6f014ad031effa41979a9e4fa0c912/transformed/core-1.16.0/AndroidManifest.xml:23:9-81
-35        android:protectionLevel="signature" />
-35-->[androidx.core:core:1.16.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/9e6f014ad031effa41979a9e4fa0c912/transformed/core-1.16.0/AndroidManifest.xml:24:9-44
-36
-37    <uses-permission android:name="com.krishikhamar.ai.krishikhamar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-37-->[androidx.core:core:1.16.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/9e6f014ad031effa41979a9e4fa0c912/transformed/core-1.16.0/AndroidManifest.xml:26:5-97
-37-->[androidx.core:core:1.16.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/9e6f014ad031effa41979a9e4fa0c912/transformed/core-1.16.0/AndroidManifest.xml:26:22-94
-38
-39    <application
-40        android:name="android.app.Application"
-41        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-41-->[androidx.core:core:1.16.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/9e6f014ad031effa41979a9e4fa0c912/transformed/core-1.16.0/AndroidManifest.xml:28:18-86
-42        android:debuggable="true"
-43        android:extractNativeLibs="false"
-44        android:icon="@mipmap/ic_launcher"
-45        android:label="krishikhamar" >
-46        <activity
-47            android:name="com.krishikhamar.ai.krishikhamar.MainActivity"
-48            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-49            android:exported="true"
-50            android:hardwareAccelerated="true"
-51            android:launchMode="singleTop"
-52            android:taskAffinity=""
-53            android:theme="@style/LaunchTheme"
-54            android:windowSoftInputMode="adjustResize" >
-55
-56            <!--
-57                 Specifies an Android theme to apply to this Activity as soon as
-58                 the Android process has started. This theme is visible to the user
-59                 while the Flutter UI initializes. After that, this theme continues
-60                 to determine the Window background behind the Flutter UI.
-61            -->
-62            <meta-data
-63                android:name="io.flutter.embedding.android.NormalTheme"
-64                android:resource="@style/NormalTheme" />
-65
-66            <intent-filter>
-67                <action android:name="android.intent.action.MAIN" />
-68
-69                <category android:name="android.intent.category.LAUNCHER" />
-70            </intent-filter>
-71        </activity>
-72        <!--
-73             Don't delete the meta-data below.
-74             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-75        -->
-76        <meta-data
-77            android:name="flutterEmbedding"
-78            android:value="2" />
+29         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+30    -->
+31    <queries>
+31-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:47:5-55:15
+32        <intent>
+32-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:48:9-51:18
+33            <action android:name="android.intent.action.PROCESS_TEXT" />
+33-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:49:13-72
+33-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:49:21-70
+34
+35            <data android:mimeType="text/plain" />
+35-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:50:13-50
+35-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:50:19-48
+36        </intent>
+37        <intent>
+37-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:52:9-54:18
+38            <action android:name="android.speech.RecognitionService" />
+38-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:53:13-72
+38-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:53:21-69
+39        </intent>
+40        <intent>
+40-->[:android_file_picker] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/android_file_picker/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-12:18
+41            <action android:name="android.intent.action.GET_CONTENT" />
+41-->[:android_file_picker] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/android_file_picker/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-72
+41-->[:android_file_picker] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/android_file_picker/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:21-69
+42
+43            <data android:mimeType="*/*" />
+43-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:50:13-50
+43-->/Users/periscopelabs/AndroidStudioProjects/krishikhamar/android/app/src/main/AndroidManifest.xml:50:19-48
+44        </intent>
+45    </queries>
+46
+47    <permission
+47-->[androidx.core:core:1.18.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e81913062a95069c7ea5aab460a2e837/transformed/core-1.18.0/AndroidManifest.xml:22:5-24:47
+48        android:name="com.krishikhamar.ai.krishikhamar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+48-->[androidx.core:core:1.18.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e81913062a95069c7ea5aab460a2e837/transformed/core-1.18.0/AndroidManifest.xml:23:9-81
+49        android:protectionLevel="signature" />
+49-->[androidx.core:core:1.18.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e81913062a95069c7ea5aab460a2e837/transformed/core-1.18.0/AndroidManifest.xml:24:9-44
+50
+51    <uses-permission android:name="com.krishikhamar.ai.krishikhamar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+51-->[androidx.core:core:1.18.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e81913062a95069c7ea5aab460a2e837/transformed/core-1.18.0/AndroidManifest.xml:26:5-97
+51-->[androidx.core:core:1.18.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e81913062a95069c7ea5aab460a2e837/transformed/core-1.18.0/AndroidManifest.xml:26:22-94
+52
+53    <application
+54        android:name="android.app.Application"
+55        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+55-->[androidx.core:core:1.18.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e81913062a95069c7ea5aab460a2e837/transformed/core-1.18.0/AndroidManifest.xml:28:18-86
+56        android:debuggable="true"
+57        android:extractNativeLibs="false"
+58        android:icon="@mipmap/ic_launcher"
+59        android:label="krishikhamar" >
+60        <activity
+61            android:name="com.krishikhamar.ai.krishikhamar.MainActivity"
+62            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+63            android:exported="true"
+64            android:hardwareAccelerated="true"
+65            android:launchMode="singleTop"
+66            android:taskAffinity=""
+67            android:theme="@style/LaunchTheme"
+68            android:windowSoftInputMode="adjustResize" >
+69
+70            <!--
+71                 Specifies an Android theme to apply to this Activity as soon as
+72                 the Android process has started. This theme is visible to the user
+73                 while the Flutter UI initializes. After that, this theme continues
+74                 to determine the Window background behind the Flutter UI.
+75            -->
+76            <meta-data
+77                android:name="io.flutter.embedding.android.NormalTheme"
+78                android:resource="@style/NormalTheme" />
 79
-80        <service
-80-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-12:56
-81            android:name="com.baseflow.geolocator.GeolocatorLocationService"
-81-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-77
-82            android:enabled="true"
-82-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:13-35
-83            android:exported="false"
-83-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:13-37
-84            android:foregroundServiceType="location" />
-84-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:12:13-53
-85
-86        <uses-library
-86-->[androidx.window:window:1.2.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:23:9-25:40
-87            android:name="androidx.window.extensions"
-87-->[androidx.window:window:1.2.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:24:13-54
-88            android:required="false" />
-88-->[androidx.window:window:1.2.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:25:13-37
-89        <uses-library
-89-->[androidx.window:window:1.2.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:26:9-28:40
-90            android:name="androidx.window.sidecar"
-90-->[androidx.window:window:1.2.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:27:13-51
-91            android:required="false" />
-91-->[androidx.window:window:1.2.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:28:13-37
-92
-93        <activity
-93-->[com.google.android.gms:play-services-base:18.3.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/82b6d439c55e0194e77b48e7f8d24494/transformed/play-services-base-18.3.0/AndroidManifest.xml:20:9-22:45
-94            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-94-->[com.google.android.gms:play-services-base:18.3.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/82b6d439c55e0194e77b48e7f8d24494/transformed/play-services-base-18.3.0/AndroidManifest.xml:20:19-85
-95            android:exported="false"
-95-->[com.google.android.gms:play-services-base:18.3.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/82b6d439c55e0194e77b48e7f8d24494/transformed/play-services-base-18.3.0/AndroidManifest.xml:22:19-43
-96            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-96-->[com.google.android.gms:play-services-base:18.3.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/82b6d439c55e0194e77b48e7f8d24494/transformed/play-services-base-18.3.0/AndroidManifest.xml:21:19-78
-97
-98        <meta-data
-98-->[com.google.android.gms:play-services-basement:18.3.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/6415fd97ca6b459682c0ddb83880b1a7/transformed/play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
-99            android:name="com.google.android.gms.version"
-99-->[com.google.android.gms:play-services-basement:18.3.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/6415fd97ca6b459682c0ddb83880b1a7/transformed/play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
-100            android:value="@integer/google_play_services_version" />
-100-->[com.google.android.gms:play-services-basement:18.3.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/6415fd97ca6b459682c0ddb83880b1a7/transformed/play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
-101
-102        <provider
-102-->[androidx.lifecycle:lifecycle-process:2.7.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/667a5e1cebdc6e3fb84035cc09c28c2f/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
-103            android:name="androidx.startup.InitializationProvider"
-103-->[androidx.lifecycle:lifecycle-process:2.7.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/667a5e1cebdc6e3fb84035cc09c28c2f/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:25:13-67
-104            android:authorities="com.krishikhamar.ai.krishikhamar.androidx-startup"
-104-->[androidx.lifecycle:lifecycle-process:2.7.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/667a5e1cebdc6e3fb84035cc09c28c2f/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:26:13-68
-105            android:exported="false" >
-105-->[androidx.lifecycle:lifecycle-process:2.7.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/667a5e1cebdc6e3fb84035cc09c28c2f/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:27:13-37
-106            <meta-data
-106-->[androidx.lifecycle:lifecycle-process:2.7.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/667a5e1cebdc6e3fb84035cc09c28c2f/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
-107                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-107-->[androidx.lifecycle:lifecycle-process:2.7.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/667a5e1cebdc6e3fb84035cc09c28c2f/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
-108                android:value="androidx.startup" />
-108-->[androidx.lifecycle:lifecycle-process:2.7.0] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/667a5e1cebdc6e3fb84035cc09c28c2f/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
-109            <meta-data
-109-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
-110                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-110-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
-111                android:value="androidx.startup" />
-111-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
-112        </provider>
-113
-114        <receiver
-114-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
-115            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-115-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
-116            android:directBootAware="false"
-116-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+80            <intent-filter>
+81                <action android:name="android.intent.action.MAIN" />
+82
+83                <category android:name="android.intent.category.LAUNCHER" />
+84            </intent-filter>
+85        </activity>
+86        <!--
+87             Don't delete the meta-data below.
+88             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+89        -->
+90        <meta-data
+91            android:name="flutterEmbedding"
+92            android:value="2" />
+93
+94        <provider
+94-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:9-17:20
+95            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+95-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:13-82
+96            android:authorities="com.krishikhamar.ai.krishikhamar.flutter.image_provider"
+96-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:13-74
+97            android:exported="false"
+97-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:12:13-37
+98            android:grantUriPermissions="true" >
+98-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:13-47
+99            <meta-data
+99-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:14:13-16:75
+100                android:name="android.support.FILE_PROVIDER_PATHS"
+100-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:15:17-67
+101                android:resource="@xml/flutter_image_picker_file_paths" />
+101-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:16:17-72
+102        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
+103        <service
+103-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:19:9-31:19
+104            android:name="com.google.android.gms.metadata.ModuleDependencies"
+104-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:20:13-78
+105            android:enabled="false"
+105-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:21:13-36
+106            android:exported="false" >
+106-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:22:13-37
+107            <intent-filter>
+107-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:24:13-26:29
+108                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+108-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:25:17-94
+108-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:25:25-91
+109            </intent-filter>
+110
+111            <meta-data
+111-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:28:13-30:36
+112                android:name="photopicker_activity:0:required"
+112-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:29:17-63
+113                android:value="" />
+113-->[:image_picker_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/image_picker_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:30:17-33
+114        </service>
+115        <service
+115-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-12:56
+116            android:name="com.baseflow.geolocator.GeolocatorLocationService"
+116-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-77
 117            android:enabled="true"
-117-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
-118            android:exported="true"
-118-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
-119            android:permission="android.permission.DUMP" >
-119-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
-120            <intent-filter>
-120-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
-121                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-121-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
-121-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
-122            </intent-filter>
-123            <intent-filter>
-123-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
-124                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-124-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
-124-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
-125            </intent-filter>
-126            <intent-filter>
-126-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
-127                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-127-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
-127-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
-128            </intent-filter>
-129            <intent-filter>
-129-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
-130                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-130-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
-130-->[androidx.profileinstaller:profileinstaller:1.3.1] /private/var/folders/8y/bhm_1krn4fq53wxhs9xm_hw00000gn/T/cursor-sandbox-cache/a4595c10e1bf9b3f401cbdb89e15f05a/gradle/caches/9.1.0/transforms/7bfbc0a6d96fb94cb1083e44b9fc61af/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
-131            </intent-filter>
-132        </receiver>
-133    </application>
-134
-135</manifest>
+117-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:13-35
+118            android:exported="false"
+118-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:13-37
+119            android:foregroundServiceType="location" />
+119-->[:geolocator_android] /Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/geolocator_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:12:13-53
+120
+121        <activity
+121-->[com.google.android.gms:play-services-base:18.3.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/82b6d439c55e0194e77b48e7f8d24494/transformed/play-services-base-18.3.0/AndroidManifest.xml:20:9-22:45
+122            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+122-->[com.google.android.gms:play-services-base:18.3.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/82b6d439c55e0194e77b48e7f8d24494/transformed/play-services-base-18.3.0/AndroidManifest.xml:20:19-85
+123            android:exported="false"
+123-->[com.google.android.gms:play-services-base:18.3.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/82b6d439c55e0194e77b48e7f8d24494/transformed/play-services-base-18.3.0/AndroidManifest.xml:22:19-43
+124            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+124-->[com.google.android.gms:play-services-base:18.3.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/82b6d439c55e0194e77b48e7f8d24494/transformed/play-services-base-18.3.0/AndroidManifest.xml:21:19-78
+125
+126        <meta-data
+126-->[com.google.android.gms:play-services-basement:18.3.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/6415fd97ca6b459682c0ddb83880b1a7/transformed/play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
+127            android:name="com.google.android.gms.version"
+127-->[com.google.android.gms:play-services-basement:18.3.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/6415fd97ca6b459682c0ddb83880b1a7/transformed/play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
+128            android:value="@integer/google_play_services_version" />
+128-->[com.google.android.gms:play-services-basement:18.3.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/6415fd97ca6b459682c0ddb83880b1a7/transformed/play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
+129
+130        <provider
+130-->[androidx.lifecycle:lifecycle-process:2.10.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e024e4bcf90f0bccc345467bea77c546/transformed/lifecycle-process-2.10.0/AndroidManifest.xml:24:9-32:20
+131            android:name="androidx.startup.InitializationProvider"
+131-->[androidx.lifecycle:lifecycle-process:2.10.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e024e4bcf90f0bccc345467bea77c546/transformed/lifecycle-process-2.10.0/AndroidManifest.xml:25:13-67
+132            android:authorities="com.krishikhamar.ai.krishikhamar.androidx-startup"
+132-->[androidx.lifecycle:lifecycle-process:2.10.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e024e4bcf90f0bccc345467bea77c546/transformed/lifecycle-process-2.10.0/AndroidManifest.xml:26:13-68
+133            android:exported="false" >
+133-->[androidx.lifecycle:lifecycle-process:2.10.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e024e4bcf90f0bccc345467bea77c546/transformed/lifecycle-process-2.10.0/AndroidManifest.xml:27:13-37
+134            <meta-data
+134-->[androidx.lifecycle:lifecycle-process:2.10.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e024e4bcf90f0bccc345467bea77c546/transformed/lifecycle-process-2.10.0/AndroidManifest.xml:29:13-31:52
+135                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+135-->[androidx.lifecycle:lifecycle-process:2.10.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e024e4bcf90f0bccc345467bea77c546/transformed/lifecycle-process-2.10.0/AndroidManifest.xml:30:17-78
+136                android:value="androidx.startup" />
+136-->[androidx.lifecycle:lifecycle-process:2.10.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/e024e4bcf90f0bccc345467bea77c546/transformed/lifecycle-process-2.10.0/AndroidManifest.xml:31:17-49
+137            <meta-data
+137-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+138                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+138-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+139                android:value="androidx.startup" />
+139-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+140        </provider>
+141
+142        <uses-library
+142-->[androidx.window:window:1.2.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:23:9-25:40
+143            android:name="androidx.window.extensions"
+143-->[androidx.window:window:1.2.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:24:13-54
+144            android:required="false" />
+144-->[androidx.window:window:1.2.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:25:13-37
+145        <uses-library
+145-->[androidx.window:window:1.2.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:26:9-28:40
+146            android:name="androidx.window.sidecar"
+146-->[androidx.window:window:1.2.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:27:13-51
+147            android:required="false" />
+147-->[androidx.window:window:1.2.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/f545985eb0b16189f23b141b02b35f52/transformed/window-1.2.0/AndroidManifest.xml:28:13-37
+148
+149        <receiver
+149-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+150            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+150-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+151            android:directBootAware="false"
+151-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+152            android:enabled="true"
+152-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+153            android:exported="true"
+153-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+154            android:permission="android.permission.DUMP" >
+154-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+155            <intent-filter>
+155-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+156                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+156-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+156-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+157            </intent-filter>
+158            <intent-filter>
+158-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+159                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+159-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+159-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+160            </intent-filter>
+161            <intent-filter>
+161-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+162                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+162-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+162-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+163            </intent-filter>
+164            <intent-filter>
+164-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+165                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+165-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+165-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/periscopelabs/.gradle/caches/9.1.0/transforms/b62ffbc91603636fc30b6b6c83e06ebd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+166            </intent-filter>
+167        </receiver>
+168    </application>
+169
+170</manifest>

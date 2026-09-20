@@ -1,8 +1,11 @@
-#Fri Sep 18 19:42:56 GMT+06:00 2026
+#Sat Sep 19 01:00:39 GMT+06:00 2026
 base.0=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeLibDexDebug/12/classes.dex
 base.10=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
 base.11=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/global_synthetics_dex/debug/mergeDebugGlobalSynthetics/classes.dex
+base.12=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeLibDexDebug/1/classes.dex
+base.13=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeLibDexDebug/10/classes.dex
+base.14=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeLibDexDebug/4/classes.dex
 base.2=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeLibDexDebug/14/classes.dex
 base.3=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeLibDexDebug/2/classes.dex
 base.4=/Users/periscopelabs/AndroidStudioProjects/krishikhamar/build/app/intermediates/dex/debug/mergeLibDexDebug/3/classes.dex
@@ -15,6 +18,9 @@ path.0=classes.dex
 path.1=12/classes.dex
 path.10=9/classes.dex
 path.11=classes.dex
+path.12=1/classes.dex
+path.13=10/classes.dex
+path.14=4/classes.dex
 path.2=14/classes.dex
 path.3=2/classes.dex
 path.4=3/classes.dex
@@ -27,6 +33,9 @@ renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.10=classes11.dex
 renamed.11=classes12.dex
+renamed.12=classes13.dex
+renamed.13=classes14.dex
+renamed.14=classes15.dex
 renamed.2=classes3.dex
 renamed.3=classes4.dex
 renamed.4=classes5.dex

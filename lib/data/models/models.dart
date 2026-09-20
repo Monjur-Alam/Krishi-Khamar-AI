@@ -74,16 +74,21 @@ class ChatMessage extends Equatable {
     required this.text,
     required this.sender,
     required this.time,
+    this.imageBytes,
+    this.attachmentName,
   });
 
   final String text;
   final MessageSender sender;
   final String time;
+  final List<int>? imageBytes;
+  final String? attachmentName;
 
   bool get isBot => sender == MessageSender.bot;
+  bool get hasImage => imageBytes != null && imageBytes!.isNotEmpty;
 
   @override
-  List<Object?> get props => [text, sender, time];
+  List<Object?> get props => [text, sender, time, imageBytes, attachmentName];
 }
 
 enum ScanRisk { high, healthy, medium }

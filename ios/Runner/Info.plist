@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>KisanBot needs the microphone for voice farming questions.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>KisanBot uses speech recognition to convert your voice questions into text.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>KisanBot needs camera access to analyze crop photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>KisanBot needs photo library access to analyze crop images.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>AgriVisionX needs your location to show local weather, farm advisories, and nearby mandi prices.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
