@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/location/bloc/location_cubit.dart';
+import '../l10n/l10n.dart';
 import '../theme/app_colors.dart';
 
 /// Shows the current location label and lets the user retry / open settings.
@@ -19,16 +20,33 @@ class LocationLabel extends StatelessWidget {
   final Color? iconColor;
   final bool compact;
 
+  String _statusLabel(BuildContext context, LocationState state) {
+    final l10n = context.l10n;
+    return switch (state.status) {
+      LocationStatus.initial || LocationStatus.requesting =>
+        l10n.detectingLocation,
+      LocationStatus.denied => l10n.locationDenied,
+      LocationStatus.permanentlyDenied => l10n.enableLocationSettings,
+      LocationStatus.serviceDisabled => l10n.turnOnLocation,
+      LocationStatus.error => state.message ?? l10n.locationUnavailable,
+      LocationStatus.ready => state.displayLabel.isNotEmpty
+          ? state.displayLabel
+          : l10n.yourArea,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocationCubit, LocationState>(
       builder: (context, state) {
         final label = state.status == LocationStatus.ready || state.hasFix
-            ? state.displayLabel
+            ? (state.displayLabel.isNotEmpty
+                ? state.displayLabel
+                : (fallback.isNotEmpty ? fallback : context.l10n.yourArea))
             : (state.status == LocationStatus.initial ||
                     state.status == LocationStatus.requesting
-                ? state.displayLabel
-                : fallback);
+                ? context.l10n.detectingLocation
+                : _statusLabel(context, state));
 
         final needsAction = state.status == LocationStatus.denied ||
             state.status == LocationStatus.permanentlyDenied ||

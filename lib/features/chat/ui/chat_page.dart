@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
+import '../../../core/l10n/l10n.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/models.dart';
 import '../../../data/services/openai_chat_service.dart';
@@ -85,7 +86,7 @@ class _ChatPageState extends State<ChatPage> {
     final bloc = context.read<ChatBloc>();
     if (!_speechReady) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Microphone / speech not available')),
+        SnackBar(content: Text(context.l10n.micUnavailable)),
       );
       return;
     }
@@ -131,13 +132,14 @@ class _ChatPageState extends State<ChatPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
       ),
       builder: (ctx) {
+        final l10n = context.l10n;
         return SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
                 leading: const Icon(Icons.photo_camera, color: AppColors.primary),
-                title: const Text('Take photo'),
+                title: Text(l10n.takePhoto),
                 onTap: () {
                   Navigator.pop(ctx);
                   _pickImage(ImageSource.camera);
@@ -145,7 +147,7 @@ class _ChatPageState extends State<ChatPage> {
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library, color: AppColors.primary),
-                title: const Text('Choose from gallery'),
+                title: Text(l10n.chooseFromGallery),
                 onTap: () {
                   Navigator.pop(ctx);
                   _pickImage(ImageSource.gallery);
@@ -153,7 +155,7 @@ class _ChatPageState extends State<ChatPage> {
               ),
               ListTile(
                 leading: const Icon(Icons.insert_drive_file, color: AppColors.primary),
-                title: const Text('Attach file'),
+                title: Text(l10n.attachFile),
                 onTap: () {
                   Navigator.pop(ctx);
                   _pickFile();
@@ -342,11 +344,11 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                     ),
                   if (state.isListening)
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 6),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 6),
                       child: Text(
-                        'Listening… tap mic to stop',
-                        style: TextStyle(
+                        context.l10n.listening,
+                        style: const TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w700,
                           fontSize: 12,
@@ -380,8 +382,8 @@ class _ChatPageState extends State<ChatPage> {
                             enabled: !state.isTyping,
                             decoration: InputDecoration(
                               hintText: state.isListening
-                                  ? 'Speak now…'
-                                  : 'Ask about your farm...',
+                                  ? context.l10n.speakNow
+                                  : context.l10n.askAboutFarm,
                               filled: true,
                               fillColor: Colors.white,
                               contentPadding: const EdgeInsets.symmetric(
@@ -448,6 +450,7 @@ class _ChatHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       color: AppColors.primary,
       child: SafeArea(
@@ -477,26 +480,26 @@ class _ChatHeader extends StatelessWidget {
                 child: const Icon(Icons.smart_toy, color: Colors.white),
               ),
               const SizedBox(width: 10),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'KisanBot AI',
-                      style: TextStyle(
+                      l10n.kisanBotAi,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w800,
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(height: 2),
+                    const SizedBox(height: 2),
                     Row(
                       children: [
-                        Icon(Icons.circle, size: 8, color: Color(0xFF69F0AE)),
-                        SizedBox(width: 6),
+                        const Icon(Icons.circle, size: 8, color: Color(0xFF69F0AE)),
+                        const SizedBox(width: 6),
                         Text(
-                          'Online • Powered by OpenAI',
-                          style: TextStyle(color: Colors.white70, fontSize: 11),
+                          l10n.onlinePoweredByOpenai,
+                          style: const TextStyle(color: Colors.white70, fontSize: 11),
                         ),
                       ],
                     ),

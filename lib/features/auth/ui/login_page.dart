@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/l10n/l10n.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
 import '../../../core/widgets/app_svg_icon.dart';
@@ -59,9 +60,9 @@ class _LoginView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 14),
-                const Text(
-                  'AgriVisionX AI',
-                  style: TextStyle(
+                Text(
+                  context.l10n.appName,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.w800,
@@ -69,7 +70,7 @@ class _LoginView extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'Smart Farming Powered by AI',
+                  context.l10n.tagline,
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.85),
                     fontSize: 13,
@@ -90,26 +91,26 @@ class _LoginView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Welcome Back 👋',
-                            style: TextStyle(
+                          Text(
+                            context.l10n.welcomeBack,
+                            style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w800,
                               color: AppColors.primaryDark,
                             ),
                           ),
                           const SizedBox(height: 6),
-                          const Text(
-                            'Login to access your farm dashboard',
-                            style: TextStyle(
+                          Text(
+                            context.l10n.loginSubtitle,
+                            style: const TextStyle(
                               color: AppColors.textSecondary,
                               fontSize: 14,
                             ),
                           ),
                           const SizedBox(height: 28),
-                          const Text(
-                            'Mobile Number',
-                            style: TextStyle(
+                          Text(
+                            context.l10n.mobileNumber,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               color: AppColors.primaryDark,
                             ),
@@ -155,10 +156,10 @@ class _LoginView extends StatelessWidget {
                                 Expanded(
                                   child: TextField(
                                     keyboardType: TextInputType.phone,
-                                    decoration: const InputDecoration(
-                                      hintText: 'Enter your mobile number',
+                                    decoration: InputDecoration(
+                                      hintText: context.l10n.enterMobile,
                                       border: InputBorder.none,
-                                      hintStyle: TextStyle(
+                                      hintStyle: const TextStyle(
                                         color: AppColors.textSecondary,
                                         fontSize: 14,
                                       ),
@@ -200,19 +201,20 @@ class _LoginView extends StatelessWidget {
                                             color: Colors.white,
                                           ),
                                         )
-                                      : const Row(
+                                      : Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'Send OTP',
-                                              style: TextStyle(
+                                              context.l10n.sendOtp,
+                                              style: const TextStyle(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 16,
                                               ),
                                             ),
-                                            SizedBox(width: 6),
-                                            Icon(Icons.chevron_right, size: 22),
+                                            const SizedBox(width: 6),
+                                            const Icon(Icons.chevron_right,
+                                                size: 22),
                                           ],
                                         ),
                                 ),
@@ -223,11 +225,12 @@ class _LoginView extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(child: Divider(color: Colors.grey.shade300)),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 12),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
                                 child: Text(
-                                  'or continue with',
-                                  style: TextStyle(
+                                  context.l10n.orContinueWith,
+                                  style: const TextStyle(
                                     color: AppColors.textSecondary,
                                     fontSize: 13,
                                   ),
@@ -252,14 +255,14 @@ class _LoginView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(28),
                                 ),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  AppSvgIcon(AppIcons.google, size: 22),
-                                  SizedBox(width: 10),
+                                  const AppSvgIcon(AppIcons.google, size: 22),
+                                  const SizedBox(width: 10),
                                   Text(
-                                    'Continue with Google',
-                                    style: TextStyle(
+                                    context.l10n.continueWithGoogle,
+                                    style: const TextStyle(
                                       color: AppColors.textPrimary,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -272,14 +275,14 @@ class _LoginView extends StatelessWidget {
                           Center(
                             child: Text.rich(
                               TextSpan(
-                                text: 'New farmer? ',
+                                text: context.l10n.newFarmer,
                                 style: const TextStyle(
                                   color: AppColors.textSecondary,
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: 'Register Now',
-                                    style: TextStyle(
+                                    text: context.l10n.registerNow,
+                                    style: const TextStyle(
                                       color: AppColors.primary,
                                       fontWeight: FontWeight.w800,
                                     ),
@@ -290,33 +293,33 @@ class _LoginView extends StatelessWidget {
                           ),
                           const SizedBox(height: 28),
                           Row(
-                            children: const [
+                            children: [
                               Expanded(
                                 child: _FeatureChip(
-                                  iconWidget: AppSvgIcon(
+                                  iconWidget: const AppSvgIcon(
                                     AppIcons.leaf,
                                     size: 14,
                                     color: AppColors.primary,
                                   ),
-                                  label: 'Crop Health',
+                                  label: context.l10n.cropHealth,
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Expanded(
                                 child: _FeatureChip(
-                                  iconWidget: AppSvgIcon(
+                                  iconWidget: const AppSvgIcon(
                                     AppIcons.weather,
                                     size: 14,
                                     color: AppColors.primary,
                                   ),
-                                  label: 'Weather',
+                                  label: context.l10n.weather,
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Expanded(
                                 child: _FeatureChip(
                                   icon: Icons.bar_chart,
-                                  label: 'Mandi Prices',
+                                  label: context.l10n.mandiPrices,
                                 ),
                               ),
                             ],

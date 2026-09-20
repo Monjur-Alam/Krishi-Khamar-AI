@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/l10n/l10n.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
 import '../../../core/widgets/app_svg_icon.dart';
@@ -32,6 +33,7 @@ class _HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(child: _Header(data: data)),
@@ -39,9 +41,9 @@ class _HomeContent extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 18, 16, 24),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
-              const Text(
-                'Quick Actions',
-                style: TextStyle(
+              Text(
+                l10n.quickActions,
+                style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w800,
                   color: AppColors.primaryDark,
@@ -74,9 +76,9 @@ class _HomeContent extends StatelessWidget {
               const SizedBox(height: 18),
               Row(
                 children: [
-                  const Text(
-                    'My Crops',
-                    style: TextStyle(
+                  Text(
+                    l10n.myCrops,
+                    style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w800,
                       color: AppColors.primaryDark,
@@ -85,9 +87,9 @@ class _HomeContent extends StatelessWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      'View All',
-                      style: TextStyle(
+                    child: Text(
+                      l10n.viewAll,
+                      style: const TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w700,
                       ),
@@ -116,6 +118,7 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.primary,
@@ -134,9 +137,10 @@ class _Header extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Good Morning ⛅',
-                          style: TextStyle(color: Colors.white70, fontSize: 14),
+                        Text(
+                          l10n.goodMorning,
+                          style: const TextStyle(
+                              color: Colors.white70, fontSize: 14),
                         ),
                         const SizedBox(height: 4),
                         Text(
@@ -194,13 +198,13 @@ class _Header extends StatelessWidget {
                   _divider(),
                   _WeatherChip(
                     icon: Icons.water_drop_outlined,
-                    text: '${data.weather.humidity}% Humidity',
+                    text: '${data.weather.humidity}% ${l10n.humidity}',
                   ),
                   _divider(),
                   _WeatherChip(
                     icon: Icons.cloud_outlined,
                     text: data.weather.rainChance >= 40
-                        ? 'Rain likely'
+                        ? l10n.rainLikely
                         : data.weather.condition,
                   ),
                 ],
@@ -272,11 +276,12 @@ class _QuickActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Row(
       children: [
         Expanded(
           child: _ActionTile(
-            label: 'AI Chat',
+            label: l10n.aiChat,
             iconWidget: const AppSvgIcon(
               AppIcons.chat,
               size: 26,
@@ -290,7 +295,7 @@ class _QuickActions extends StatelessWidget {
         const SizedBox(width: 10),
         Expanded(
           child: _ActionTile(
-            label: 'Disease Detect',
+            label: l10n.diseaseDetect,
             iconWidget: const AppSvgIcon(
               AppIcons.leaf,
               size: 26,
@@ -304,7 +309,7 @@ class _QuickActions extends StatelessWidget {
         const SizedBox(width: 10),
         Expanded(
           child: _ActionTile(
-            label: 'Mandi Prices',
+            label: l10n.mandiPrices,
             icon: Icons.trending_up,
             bg: const Color(0xFFFFF3E0),
             fg: const Color(0xFFEF6C00),
@@ -314,7 +319,7 @@ class _QuickActions extends StatelessWidget {
         const SizedBox(width: 10),
         Expanded(
           child: _ActionTile(
-            label: 'Schemes',
+            label: l10n.schemes,
             icon: Icons.description_outlined,
             bg: const Color(0xFFF3E5F5),
             fg: const Color(0xFF6A1B9A),
@@ -386,6 +391,7 @@ class _WeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -413,7 +419,7 @@ class _WeatherCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "TODAY'S WEATHER",
+                      l10n.todaysWeather,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.85),
                         fontSize: 11,
@@ -469,17 +475,18 @@ class _WeatherCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _metric(Icons.water_drop, '${weather.humidity}%', 'Humidity'),
-              _metric(Icons.air, '${weather.windKmh}km/h', 'Wind'),
-              _metric(Icons.wb_sunny, 'UV ${weather.uvIndex}', 'UV Index'),
+              _metric(Icons.water_drop, '${weather.humidity}%', l10n.humidity),
+              _metric(Icons.air, '${weather.windKmh}km/h', l10n.wind),
+              _metric(
+                  Icons.wb_sunny, 'UV ${weather.uvIndex}', l10n.uvIndex),
             ],
           ),
           const SizedBox(height: 12),
           GestureDetector(
             onTap: onForecast,
-            child: const Text(
-              'View 7-day forecast >',
-              style: TextStyle(
+            child: Text(
+              l10n.view7DayForecast,
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
@@ -526,6 +533,7 @@ class _MandiCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -545,15 +553,15 @@ class _MandiCard extends StatelessWidget {
             children: [
               const Icon(Icons.trending_up, color: Color(0xFFEF6C00), size: 20),
               const SizedBox(width: 8),
-              const Text(
-                'Mandi Prices',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+              Text(
+                l10n.mandiPrices,
+                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
               ),
               const Spacer(),
               BlocBuilder<LocationCubit, LocationState>(
                 builder: (context, loc) {
                   return Text(
-                    'Live • ${loc.cityLabel}',
+                    '${l10n.live} • ${loc.city ?? l10n.yourArea}',
                     style: const TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w700,
@@ -608,6 +616,7 @@ class _KisanBotCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
@@ -633,9 +642,9 @@ class _KisanBotCard extends StatelessWidget {
                   child: const Icon(Icons.smart_toy, color: Colors.white),
                 ),
                 const SizedBox(width: 10),
-                const Text(
-                  'KisanBot AI',
-                  style: TextStyle(
+                Text(
+                  l10n.kisanBotAi,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
                     fontSize: 16,
@@ -649,9 +658,9 @@ class _KisanBotCard extends StatelessWidget {
                     color: AppColors.yellow,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Text(
-                    'LIVE',
-                    style: TextStyle(
+                  child: Text(
+                    l10n.live.toUpperCase(),
+                    style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w800,
                       color: Colors.black,
@@ -669,9 +678,9 @@ class _KisanBotCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
-              'Ask me anything about farming →',
-              style: TextStyle(
+            Text(
+              l10n.askFarming,
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
               ),
@@ -690,6 +699,7 @@ class _DiseaseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final hasAlert = alert != null && alert!.risk != ScanRisk.healthy;
     return InkWell(
       onTap: onTap,
@@ -725,21 +735,21 @@ class _DiseaseCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Crop Disease Detection',
-                        style: TextStyle(
+                        l10n.cropDiseaseDetection,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 15,
                         ),
                       ),
-                      SizedBox(height: 2),
+                      const SizedBox(height: 2),
                       Text(
-                        'Scan your crops with AI • 98% accuracy',
-                        style: TextStyle(
+                        l10n.scanCropsWithAi,
+                        style: const TextStyle(
                           color: AppColors.textSecondary,
                           fontSize: 12,
                         ),
@@ -771,8 +781,8 @@ class _DiseaseCard extends StatelessWidget {
               ),
               child: Text(
                 hasAlert
-                    ? '⚠️ Alert: ${alert!.crop} — ${alert!.diagnosis}'
-                    : '✅ No active disease alerts — tap to scan a crop',
+                    ? l10n.alertDetected(alert!.crop, alert!.diagnosis)
+                    : l10n.noActiveDiseaseAlerts,
                 style: TextStyle(
                   color: hasAlert ? AppColors.danger : AppColors.success,
                   fontWeight: FontWeight.w600,
@@ -822,7 +832,10 @@ class _CropTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              crop.statusLabel,
+              switch (crop.status) {
+                CropStatus.healthy => context.l10n.healthy,
+                _ => crop.statusLabel,
+              },
               style: TextStyle(
                 color: fg,
                 fontWeight: FontWeight.w700,
@@ -841,6 +854,7 @@ class _SchemesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -860,22 +874,22 @@ class _SchemesCard extends StatelessWidget {
             child: const Icon(Icons.description, color: Colors.white),
           ),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Government Schemes',
-                  style: TextStyle(
+                  l10n.governmentSchemes,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
                     fontSize: 15,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
-                  '3 schemes available for you',
-                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                  l10n.schemesAvailable,
+                  style: const TextStyle(color: Colors.white70, fontSize: 12),
                 ),
               ],
             ),

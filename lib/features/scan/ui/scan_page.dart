@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/l10n/l10n.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
 import '../../../core/widgets/app_svg_icon.dart';
@@ -44,6 +45,7 @@ class _ScanIdleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return ColoredBox(
       color: AppColors.mintSoft,
       child: SafeArea(
@@ -80,17 +82,17 @@ class _ScanIdleView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 14),
-                    const Text(
-                      'Drop your crop photo here',
-                      style: TextStyle(
+                    Text(
+                      l10n.dropCropPhoto,
+                      style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 16,
                       ),
                     ),
                     const SizedBox(height: 6),
-                    const Text(
-                      'Supports JPG, PNG • Max 10MB',
-                      style: TextStyle(
+                    Text(
+                      l10n.supportsJpg,
+                      style: const TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 12,
                       ),
@@ -101,7 +103,7 @@ class _ScanIdleView extends StatelessWidget {
                           .read<ScanBloc>()
                           .add(const ScanBrowsePressed()),
                       icon: const Icon(Icons.upload, size: 18),
-                      label: const Text('Browse Photo'),
+                      label: Text(l10n.browsePhoto),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primary,
                         side: const BorderSide(color: AppColors.primary),
@@ -144,22 +146,22 @@ class _ScanIdleView extends StatelessWidget {
                       child: const Icon(Icons.camera_alt, color: Colors.white),
                     ),
                     const SizedBox(width: 14),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Capture with Camera',
-                            style: TextStyle(
+                            l10n.captureWithCamera,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w800,
                               fontSize: 16,
                             ),
                           ),
-                          SizedBox(height: 2),
+                          const SizedBox(height: 2),
                           Text(
-                            'Take a photo for instant AI analysis',
-                            style: TextStyle(
+                            l10n.takePhotoForAi,
+                            style: const TextStyle(
                               color: Colors.white70,
                               fontSize: 12,
                             ),
@@ -181,9 +183,10 @@ class _ScanIdleView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '📸 Photo Tips',
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
+                  Text(
+                    l10n.photoTips,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w800, fontSize: 15),
                   ),
                   const SizedBox(height: 12),
                   ...state.photoTips.map(
@@ -211,9 +214,9 @@ class _ScanIdleView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 18),
-            const Text(
-              'Recent Scans',
-              style: TextStyle(
+            Text(
+              l10n.recentScans,
+              style: const TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
                 color: AppColors.primaryDark,
@@ -228,9 +231,9 @@ class _ScanIdleView extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: const Text(
-                  'No scans yet. Capture a crop photo to get AI disease detection.',
-                  style: TextStyle(color: AppColors.textSecondary),
+                child: Text(
+                  l10n.noScansYet,
+                  style: const TextStyle(color: AppColors.textSecondary),
                 ),
               )
             else
@@ -253,7 +256,13 @@ class _RecentScanTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final isHealthy = scan.risk == ScanRisk.healthy;
+    final riskText = switch (scan.risk) {
+      ScanRisk.high => l10n.highRisk,
+      ScanRisk.healthy => l10n.healthy,
+      ScanRisk.medium => l10n.medium,
+    };
     final imagePath = scan.imagePath;
     return InkWell(
       onTap: () => context.read<ScanBloc>().add(ScanRecentOpened(scan)),
@@ -310,7 +319,7 @@ class _RecentScanTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                scan.riskLabel,
+                riskText,
                 style: TextStyle(
                   color: isHealthy ? AppColors.success : AppColors.danger,
                   fontWeight: FontWeight.w700,
@@ -335,6 +344,7 @@ class _AnalyzingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       children: [
         _DetectionHeader(
@@ -373,18 +383,18 @@ class _AnalyzingView extends StatelessWidget {
                       ),
                     ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Analyzing Crop...',
-                    style: TextStyle(
+                  Text(
+                    l10n.analyzingCrop,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
                       color: AppColors.primaryDark,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    'AI is scanning for diseases & deficiencies',
-                    style: TextStyle(color: AppColors.textSecondary),
+                  Text(
+                    l10n.aiScanning,
+                    style: const TextStyle(color: AppColors.textSecondary),
                   ),
                   const SizedBox(height: 22),
                   ClipRRect(
@@ -400,9 +410,9 @@ class _AnalyzingView extends StatelessWidget {
                   ),
                   const SizedBox(height: 28),
                   ...[
-                    'Leaf texture analysis...',
-                    'Disease pattern matching...',
-                    'Generating recommendations...',
+                    l10n.leafTexture,
+                    l10n.diseasePattern,
+                    l10n.generatingRecs,
                   ].map(
                     (step) => Container(
                       width: double.infinity,
@@ -445,6 +455,7 @@ class _ResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       children: [
         _DetectionHeader(
@@ -524,14 +535,16 @@ class _ResultView extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                _InfoBox(label: 'Disease', value: result.name),
+                                _InfoBox(
+                                    label: l10n.disease, value: result.name),
                                 const SizedBox(width: 8),
                                 _InfoBox(
-                                  label: 'Severity',
+                                  label: l10n.severity,
                                   value: result.severity,
                                 ),
                                 const SizedBox(width: 8),
-                                _InfoBox(label: 'Spread', value: result.spread),
+                                _InfoBox(
+                                    label: l10n.spread, value: result.spread),
                               ],
                             ),
                             const SizedBox(height: 14),
@@ -559,13 +572,13 @@ class _ResultView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Icon(Icons.science, color: AppColors.primary),
-                          SizedBox(width: 8),
+                          const Icon(Icons.science, color: AppColors.primary),
+                          const SizedBox(width: 8),
                           Text(
-                            'Treatment Plan',
-                            style: TextStyle(
+                            l10n.treatmentPlan,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w800,
                               color: AppColors.primaryDark,
                               fontSize: 16,
@@ -618,9 +631,9 @@ class _ResultView extends StatelessWidget {
                         .read<ScanBloc>()
                         .add(const ScanAnotherPressed()),
                     icon: const Icon(Icons.camera_alt),
-                    label: const Text(
-                      'Scan Another Crop',
-                      style: TextStyle(fontWeight: FontWeight.w700),
+                    label: Text(
+                      l10n.scanAnotherCrop,
+                      style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
@@ -685,6 +698,7 @@ class _DetectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       width: double.infinity,
       color: AppColors.primary,
@@ -709,21 +723,21 @@ class _DetectionHeader extends StatelessWidget {
                   ),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: Column(
                   children: [
                     Text(
-                      'Crop Disease Detection',
-                      style: TextStyle(
+                      l10n.cropDiseaseDetection,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w800,
                         fontSize: 17,
                       ),
                     ),
-                    SizedBox(height: 2),
+                    const SizedBox(height: 2),
                     Text(
-                      'AI-powered • 98% accuracy',
-                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                      l10n.aiPoweredAccuracy,
+                      style: const TextStyle(color: Colors.white70, fontSize: 12),
                     ),
                   ],
                 ),

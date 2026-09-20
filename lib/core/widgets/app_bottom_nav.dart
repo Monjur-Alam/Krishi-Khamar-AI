@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/l10n.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_icons.dart';
 import 'app_svg_icon.dart';
@@ -14,16 +15,17 @@ class AppBottomNav extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  static const _items = [
-    (AppIcons.home, 'Home'),
-    (AppIcons.chat, 'AI Chat'),
-    (AppIcons.leaf, 'Scan'),
-    (AppIcons.weather, 'Weather'),
-    (AppIcons.user, 'Profile'),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final items = [
+      (AppIcons.home, l10n.home),
+      (AppIcons.chat, l10n.aiChat),
+      (AppIcons.leaf, l10n.scan),
+      (AppIcons.weather, l10n.weather),
+      (AppIcons.user, l10n.profile),
+    ];
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -40,8 +42,8 @@ class AppBottomNav extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           child: Row(
-            children: List.generate(_items.length, (index) {
-              final item = _items[index];
+            children: List.generate(items.length, (index) {
+              final item = items[index];
               final selected = index == currentIndex;
               final color =
                   selected ? AppColors.navActive : AppColors.navInactive;

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/l10n/l10n.dart';
+import '../../../core/l10n/locale_cubit.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
 import '../../../core/widgets/app_svg_icon.dart';
@@ -28,293 +30,308 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
+Future<void> _showLanguageSheet(BuildContext context) async {
+  final l10n = context.l10n;
+  final cubit = context.read<LocaleCubit>();
+  final current = cubit.state.languageCode;
+
+  await showModalBottomSheet<void>(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (sheetContext) {
+      return SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                l10n.chooseLanguage,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(height: 12),
+              _LanguageOption(
+                label: l10n.english,
+                selected: current == 'en',
+                onTap: () {
+                  cubit.setLocale(const Locale('en'));
+                  Navigator.pop(sheetContext);
+                },
+              ),
+              _LanguageOption(
+                label: l10n.bangla,
+                selected: current == 'bn',
+                onTap: () {
+                  cubit.setLocale(const Locale('bn'));
+                  Navigator.pop(sheetContext);
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+class _LanguageOption extends StatelessWidget {
+  const _LanguageOption({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(
+        label,
+        style: TextStyle(
+          fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+        ),
+      ),
+      trailing: selected
+          ? const Icon(Icons.check_circle, color: AppColors.primary)
+          : const Icon(Icons.circle_outlined, color: Colors.grey),
+      onTap: onTap,
+    );
+  }
+}
+
 class _ProfileMainView extends StatelessWidget {
   const _ProfileMainView({required this.profile});
   final UserProfile profile;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final languageLabel = context.watch<LocaleCubit>().languageLabel;
+
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Container(
-            color: AppColors.primary,
-            child: SafeArea(
-              bottom: false,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 4, 8, 20),
-                child: Column(
-                  children: [
-                    Row(
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                color: AppColors.primary,
+                padding: const EdgeInsets.only(bottom: 72),
+                child: SafeArea(
+                  bottom: false,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 4, 8, 20),
+                    child: Column(
                       children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white38),
-                            ),
-                            child: const Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                          ),
-                        ),
-                        const Expanded(
-                          child: Text(
-                            'My Profile',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () => context
-                              .read<ProfileBloc>()
-                              .add(const ProfileShowSettings()),
-                          icon: Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white38),
-                            ),
-                            child: const Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const SizedBox(width: 8),
-                        Stack(
+                        Row(
                           children: [
-                            const CircleAvatar(
-                              radius: 40,
-                              backgroundColor: Colors.white24,
-                              child: AppSvgIcon(
-                                AppIcons.user,
-                                size: 40,
-                                color: Colors.white,
+                            IconButton(
+                              onPressed: () {},
+                              icon: Container(
+                                padding: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.white38),
+                                ),
+                                child: const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
                               ),
                             ),
-                            Positioned(
-                              right: 0,
-                              bottom: 2,
-                              child: Container(
-                                padding: const EdgeInsets.all(3),
-                                decoration: const BoxDecoration(
-                                  color: AppColors.yellow,
-                                  shape: BoxShape.circle,
+                            Expanded(
+                              child: Text(
+                                l10n.myProfile,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 18,
                                 ),
-                                child: const Icon(Icons.check, size: 12),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => context
+                                  .read<ProfileBloc>()
+                                  .add(const ProfileShowSettings()),
+                              icon: Container(
+                                padding: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.white38),
+                                ),
+                                child: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(width: 14),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                profile.name,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 20,
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const SizedBox(width: 8),
+                            Stack(
+                              children: [
+                                const CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor: Colors.white24,
+                                  child: AppSvgIcon(
+                                    AppIcons.user,
+                                    size: 40,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                profile.phone,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              LocationLabel(
-                                fallback: profile.location,
-                                compact: true,
-                              ),
-                              const SizedBox(height: 8),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.black26,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.star,
+                                Positioned(
+                                  right: 0,
+                                  bottom: 2,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(3),
+                                    decoration: const BoxDecoration(
                                       color: AppColors.yellow,
-                                      size: 14,
+                                      shape: BoxShape.circle,
                                     ),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      'Verified Farmer',
-                                      style: TextStyle(
-                                        color: AppColors.yellow,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
+                                    child: const Icon(Icons.check, size: 12),
+                                  ),
                                 ),
+                              ],
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    profile.name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    profile.phone,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  LocationLabel(
+                                    fallback: profile.location,
+                                    compact: true,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 4,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black26,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          color: AppColors.yellow,
+                                          size: 14,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          l10n.verifiedFarmer,
+                                          style: const TextStyle(
+                                            color: AppColors.yellow,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            _Stat(
+                              value: profile.farmArea,
+                              label: l10n.farmArea,
+                            ),
+                            _Stat(
+                              value: profile.activeCrops,
+                              label: l10n.crops,
+                            ),
+                            _Stat(
+                              value: profile.memberSince,
+                              label: l10n.memberSince,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        _Stat(value: profile.farmArea, label: 'Farm Area'),
-                        _Stat(value: profile.activeCrops, label: 'Crops'),
-                        _Stat(value: profile.memberSince, label: 'Member Since'),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+              Positioned(
+                left: 16,
+                right: 16,
+                bottom: 0,
+                child: _CreditCard(profile: profile),
+              ),
+            ],
           ),
         ),
         SliverPadding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
-              Transform.translate(
-                offset: const Offset(0, -18),
-                child: Container(
-                  padding: const EdgeInsets.all(18),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        AppColors.creditCardBlue,
-                        Color(0xFF1565C0),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.creditCardBlue.withValues(alpha: 0.35),
-                        blurRadius: 12,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'KISAN CREDIT CARD',
-                            style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.9),
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 1,
-                            ),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.credit_card,
-                            color: Colors.amber,
-                            size: 22,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 18),
-                      Text(
-                        '••••  ••••  ${profile.cardLast4}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
-                      const SizedBox(height: 18),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'CREDIT LIMIT',
-                                style: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.75),
-                                  fontSize: 10,
-                                ),
-                              ),
-                              Text(
-                                profile.creditLimit,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                'VALID THRU',
-                                style: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.75),
-                                  fontSize: 10,
-                                ),
-                              ),
-                              Text(
-                                profile.validThru,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               _MenuCard(
                 children: [
                   _MenuTile(
                     icon: Icons.language,
                     iconBg: const Color(0xFFE3F2FD),
                     iconColor: Colors.blue,
-                    title: 'Language',
-                    subtitle: profile.language,
+                    title: l10n.language,
+                    subtitle: languageLabel,
+                    onTap: () => _showLanguageSheet(context),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              const Text(
-                'FARM DETAILS',
-                style: TextStyle(
+              Text(
+                l10n.farmDetails,
+                style: const TextStyle(
                   color: AppColors.primary,
                   fontWeight: FontWeight.w800,
                   fontSize: 12,
@@ -328,7 +345,7 @@ class _ProfileMainView extends StatelessWidget {
                     icon: Icons.map_outlined,
                     iconBg: const Color(0xFFE3F2FD),
                     iconColor: Colors.blue,
-                    title: 'Farm Location',
+                    title: l10n.farmLocation,
                     subtitleWidget: LocationLabel(
                       fallback: profile.location,
                       compact: true,
@@ -345,7 +362,7 @@ class _ProfileMainView extends StatelessWidget {
                     icon: Icons.star_outline,
                     iconBg: const Color(0xFFFFF3E0),
                     iconColor: Colors.orange,
-                    title: 'Crop Profile',
+                    title: l10n.cropProfile,
                     subtitle: profile.crops,
                   ),
                 ],
@@ -355,9 +372,9 @@ class _ProfileMainView extends StatelessWidget {
                 onPressed: () => context
                     .read<ProfileBloc>()
                     .add(const ProfileShowSettings()),
-                child: const Text(
-                  'More settings →',
-                  style: TextStyle(
+                child: Text(
+                  l10n.moreSettings,
+                  style: const TextStyle(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w700,
                   ),
@@ -371,12 +388,122 @@ class _ProfileMainView extends StatelessWidget {
   }
 }
 
+class _CreditCard extends StatelessWidget {
+  const _CreditCard({required this.profile});
+  final UserProfile profile;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [
+            AppColors.creditCardBlue,
+            Color(0xFF1565C0),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.creditCardBlue.withValues(alpha: 0.35),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                l10n.kisanCreditCard,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1,
+                ),
+              ),
+              const Spacer(),
+              const Icon(
+                Icons.credit_card,
+                color: Colors.amber,
+                size: 22,
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          Text(
+            '••••  ••••  ${profile.cardLast4}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.5,
+            ),
+          ),
+          const SizedBox(height: 18),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.creditLimit,
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.75),
+                      fontSize: 10,
+                    ),
+                  ),
+                  Text(
+                    profile.creditLimit,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    l10n.validThru,
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.75),
+                      fontSize: 10,
+                    ),
+                  ),
+                  Text(
+                    profile.validThru,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _SettingsView extends StatelessWidget {
   const _SettingsView({required this.profile});
   final UserProfile profile;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final languageLabel = context.watch<LocaleCubit>().languageLabel;
+
     return ColoredBox(
       color: AppColors.mintSoft,
       child: SafeArea(
@@ -391,9 +518,9 @@ class _SettingsView extends StatelessWidget {
                       .add(const ProfileShowMain()),
                   icon: const Icon(Icons.arrow_back),
                 ),
-                const Text(
-                  'Settings',
-                  style: TextStyle(
+                Text(
+                  l10n.settings,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 18,
                   ),
@@ -401,14 +528,14 @@ class _SettingsView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            const _SectionLabel('FARM DETAILS'),
+            _SectionLabel(l10n.farmDetails),
             _MenuCard(
               children: [
                 _MenuTile(
                   icon: Icons.map_outlined,
                   iconBg: const Color(0xFFE3F2FD),
                   iconColor: Colors.blue,
-                  title: 'Farm Location',
+                  title: l10n.farmLocation,
                   subtitleWidget: LocationLabel(
                     fallback: profile.location,
                     compact: true,
@@ -425,52 +552,53 @@ class _SettingsView extends StatelessWidget {
                   icon: Icons.star_outline,
                   iconBg: const Color(0xFFFFF3E0),
                   iconColor: Colors.orange,
-                  title: 'Crop Profile',
+                  title: l10n.cropProfile,
                   subtitle: profile.crops,
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            const _SectionLabel('PREFERENCES'),
+            _SectionLabel(l10n.preferences),
             _MenuCard(
               children: [
-                const _MenuTile(
-                  iconWidget: AppSvgIcon(
+                _MenuTile(
+                  iconWidget: const AppSvgIcon(
                     AppIcons.bell,
                     size: 20,
                     color: Colors.purple,
                   ),
-                  iconBg: Color(0xFFF3E5F5),
+                  iconBg: const Color(0xFFF3E5F5),
                   iconColor: Colors.purple,
-                  title: 'Notifications',
-                  subtitle: 'Enabled',
+                  title: l10n.notifications,
+                  subtitle: l10n.enabled,
                 ),
                 Divider(height: 1, color: Colors.grey.shade200),
-                const _MenuTile(
+                _MenuTile(
                   icon: Icons.language,
-                  iconBg: Color(0xFFE3F2FD),
+                  iconBg: const Color(0xFFE3F2FD),
                   iconColor: Colors.blue,
-                  title: 'Language',
-                  subtitle: 'English',
+                  title: l10n.language,
+                  subtitle: languageLabel,
+                  onTap: () => _showLanguageSheet(context),
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            const _SectionLabel('SECURITY'),
+            _SectionLabel(l10n.security),
             _MenuCard(
               children: [
-                const _MenuTile(
+                _MenuTile(
                   icon: Icons.shield_outlined,
-                  iconBg: Color(0xFFE8F5E9),
+                  iconBg: const Color(0xFFE8F5E9),
                   iconColor: AppColors.primary,
-                  title: 'Privacy Settings',
+                  title: l10n.privacySettings,
                 ),
                 Divider(height: 1, color: Colors.grey.shade200),
-                const _MenuTile(
+                _MenuTile(
                   icon: Icons.help_outline,
-                  iconBg: Color(0xFFE0F2F1),
+                  iconBg: const Color(0xFFE0F2F1),
                   iconColor: Colors.teal,
-                  title: 'Help & Support',
+                  title: l10n.helpSupport,
                 ),
               ],
             ),
@@ -483,9 +611,9 @@ class _SettingsView extends StatelessWidget {
                 );
               },
               icon: const Icon(Icons.logout, color: AppColors.danger),
-              label: const Text(
-                'Logout',
-                style: TextStyle(
+              label: Text(
+                l10n.logout,
+                style: const TextStyle(
                   color: AppColors.danger,
                   fontWeight: FontWeight.w800,
                 ),
@@ -500,10 +628,10 @@ class _SettingsView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'AgriVisionX AI v1.0.0 • Made with ❤️ for Indian Farmers',
+            Text(
+              l10n.madeWithLove,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: 12,
               ),
@@ -593,6 +721,7 @@ class _MenuTile extends StatelessWidget {
     required this.title,
     this.subtitle,
     this.subtitleWidget,
+    this.onTap,
   });
 
   final IconData? icon;
@@ -602,6 +731,7 @@ class _MenuTile extends StatelessWidget {
   final String title;
   final String? subtitle;
   final Widget? subtitleWidget;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -625,7 +755,7 @@ class _MenuTile extends StatelessWidget {
                   ),
                 )),
       trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-      onTap: () {},
+      onTap: onTap ?? () {},
     );
   }
 }

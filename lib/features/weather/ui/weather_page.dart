@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/l10n/l10n.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
 import '../../../core/widgets/app_svg_icon.dart';
@@ -15,6 +16,7 @@ class WeatherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
         return Column(
@@ -43,20 +45,20 @@ class WeatherPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           children: [
                             Text(
-                              'Weather & Advisory',
+                              l10n.weatherAdvisory,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w800,
                                 fontSize: 17,
                               ),
                             ),
-                            SizedBox(height: 4),
-                            LocationLabel(compact: true),
+                            const SizedBox(height: 4),
+                            const LocationLabel(compact: true),
                           ],
                         ),
                       ),
@@ -113,7 +115,7 @@ class WeatherPage extends StatelessWidget {
                     ),
                   _Card(
                     titleIcon: Icons.agriculture,
-                    title: "Today's Farming Advisory",
+                    title: l10n.todaysFarmingAdvisory,
                     child: Column(
                       children: state.advisories
                           .map(
@@ -140,7 +142,7 @@ class WeatherPage extends StatelessWidget {
                   const SizedBox(height: 14),
                   _Card(
                     titleIcon: Icons.access_time,
-                    title: 'Hourly Forecast',
+                    title: l10n.hourlyForecast,
                     child: SizedBox(
                       height: 100,
                       child: ListView.separated(
@@ -150,6 +152,7 @@ class WeatherPage extends StatelessWidget {
                         itemBuilder: (context, i) {
                           final h = state.hourly[i];
                           final selected = state.selectedHour == i;
+                          final hourLabel = h.label == 'Now' ? l10n.now : h.label;
                           return GestureDetector(
                             onTap: () => context
                                 .read<WeatherBloc>()
@@ -167,7 +170,7 @@ class WeatherPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    h.label,
+                                    hourLabel,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 12,
@@ -204,7 +207,7 @@ class WeatherPage extends StatelessWidget {
                   const SizedBox(height: 14),
                   _Card(
                     titleIcon: Icons.calendar_month,
-                    title: '7-Day Forecast',
+                    title: l10n.sevenDayForecast,
                     child: Column(
                       children: [
                         for (var i = 0; i < state.weekly.length; i++) ...[
@@ -225,17 +228,17 @@ class WeatherPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Row(
+                        Row(
                           children: [
-                            AppSvgIcon(
+                            const AppSvgIcon(
                               AppIcons.weather,
                               size: 22,
                               color: Colors.white,
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
-                              'Rain Prediction',
-                              style: TextStyle(
+                              l10n.rainPrediction,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w800,
                                 fontSize: 16,

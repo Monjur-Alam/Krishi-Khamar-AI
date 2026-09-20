@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/l10n/l10n.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
 import '../../../core/widgets/app_svg_icon.dart';
@@ -115,9 +116,9 @@ class _SplashView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Text(
-                      'AgriVisionX AI',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.appName,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 28,
                         fontWeight: FontWeight.w800,
@@ -126,7 +127,7 @@ class _SplashView extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Smart Farming Powered by AI',
+                      context.l10n.tagline,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.9),
                         fontSize: 15,
@@ -155,7 +156,7 @@ class _SplashView extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'v1.0.0 • Made for Indian Farmers',
+                      context.l10n.madeForFarmers,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.75),
                         fontSize: 12,
