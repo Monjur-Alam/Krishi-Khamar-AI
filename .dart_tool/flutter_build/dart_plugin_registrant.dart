@@ -10,23 +10,31 @@ import 'package:android_file_picker/android_file_picker.dart' as android_file_pi
 import 'package:geocoding_android/geocoding_android.dart' as geocoding_android;
 import 'package:geolocator_android/geolocator_android.dart' as geolocator_android;
 import 'package:image_picker_android/image_picker_android.dart' as image_picker_android;
+import 'package:path_provider_android/path_provider_android.dart' as path_provider_android;
+import 'package:sqflite_android/sqflite_android.dart' as sqflite_android;
 import 'package:file_picker_darwin/file_picker_darwin.dart' as file_picker_darwin;
 import 'package:geocoding_darwin/geocoding_darwin.dart' as geocoding_darwin;
 import 'package:geolocator_apple/geolocator_apple.dart' as geolocator_apple;
 import 'package:image_picker_ios/image_picker_ios.dart' as image_picker_ios;
+import 'package:path_provider_foundation/path_provider_foundation.dart' as path_provider_foundation;
+import 'package:sqflite_darwin/sqflite_darwin.dart' as sqflite_darwin;
 import 'package:file_picker_linux/file_picker_linux.dart' as file_picker_linux;
 import 'package:file_selector_linux/file_selector_linux.dart' as file_selector_linux;
 import 'package:geolocator_linux/geolocator_linux.dart' as geolocator_linux;
 import 'package:image_picker_linux/image_picker_linux.dart' as image_picker_linux;
 import 'package:package_info_plus/package_info_plus.dart' as package_info_plus;
+import 'package:path_provider_linux/path_provider_linux.dart' as path_provider_linux;
 import 'package:file_picker_darwin/file_picker_darwin.dart' as file_picker_darwin;
 import 'package:file_selector_macos/file_selector_macos.dart' as file_selector_macos;
 import 'package:geocoding_darwin/geocoding_darwin.dart' as geocoding_darwin;
 import 'package:geolocator_apple/geolocator_apple.dart' as geolocator_apple;
 import 'package:image_picker_macos/image_picker_macos.dart' as image_picker_macos;
+import 'package:path_provider_foundation/path_provider_foundation.dart' as path_provider_foundation;
+import 'package:sqflite_darwin/sqflite_darwin.dart' as sqflite_darwin;
 import 'package:file_selector_windows/file_selector_windows.dart' as file_selector_windows;
 import 'package:image_picker_windows/image_picker_windows.dart' as image_picker_windows;
 import 'package:package_info_plus/package_info_plus.dart' as package_info_plus;
+import 'package:path_provider_windows/path_provider_windows.dart' as path_provider_windows;
 import 'package:speech_to_text_windows/speech_to_text_windows.dart' as speech_to_text_windows;
 import 'package:windows_file_picker/windows_file_picker.dart' as windows_file_picker;
 
@@ -72,6 +80,24 @@ class _PluginRegistrant {
         );
       }
 
+      try {
+        path_provider_android.PathProviderAndroid.registerWith();
+      } catch (err) {
+        print(
+          '`path_provider_android` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        sqflite_android.SqfliteAndroid.registerWith();
+      } catch (err) {
+        print(
+          '`sqflite_android` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
     } else if (Platform.isIOS) {
       try {
         file_picker_darwin.FilePickerDarwin.registerWith();
@@ -105,6 +131,24 @@ class _PluginRegistrant {
       } catch (err) {
         print(
           '`image_picker_ios` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        path_provider_foundation.PathProviderFoundation.registerWith();
+      } catch (err) {
+        print(
+          '`path_provider_foundation` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        sqflite_darwin.SqfliteDarwin.registerWith();
+      } catch (err) {
+        print(
+          '`sqflite_darwin` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
       }
@@ -155,6 +199,15 @@ class _PluginRegistrant {
         );
       }
 
+      try {
+        path_provider_linux.PathProviderLinux.registerWith();
+      } catch (err) {
+        print(
+          '`path_provider_linux` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
     } else if (Platform.isMacOS) {
       try {
         file_picker_darwin.FilePickerDarwin.registerWith();
@@ -201,6 +254,24 @@ class _PluginRegistrant {
         );
       }
 
+      try {
+        path_provider_foundation.PathProviderFoundation.registerWith();
+      } catch (err) {
+        print(
+          '`path_provider_foundation` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        sqflite_darwin.SqfliteDarwin.registerWith();
+      } catch (err) {
+        print(
+          '`sqflite_darwin` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
     } else if (Platform.isWindows) {
       try {
         file_selector_windows.FileSelectorWindows.registerWith();
@@ -225,6 +296,15 @@ class _PluginRegistrant {
       } catch (err) {
         print(
           '`package_info_plus` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        path_provider_windows.PathProviderWindows.registerWith();
+      } catch (err) {
+        print(
+          '`path_provider_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
       }

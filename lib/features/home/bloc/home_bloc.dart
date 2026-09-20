@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/dummy/dummy_data.dart';
 import '../../../data/models/models.dart';
+import '../../../data/repositories/scan_repository.dart';
 import '../../../data/repositories/weather_repository.dart';
 
 abstract class HomeEvent extends Equatable {
@@ -28,6 +29,10 @@ class HomeWeatherRefreshRequested extends HomeEvent {
   List<Object?> get props => [latitude, longitude];
 }
 
+class HomeRefreshScanAlert extends HomeEvent {
+  const HomeRefreshScanAlert();
+}
+
 abstract class HomeState extends Equatable {
   const HomeState();
   @override
@@ -48,6 +53,7 @@ class HomeLoaded extends HomeState {
     required this.kisanBotAlert,
     this.weatherLoading = false,
     this.weatherError,
+    this.latestAlert,
   });
 
   final String userName;
@@ -58,12 +64,15 @@ class HomeLoaded extends HomeState {
   final String kisanBotAlert;
   final bool weatherLoading;
   final String? weatherError;
+  final CropScan? latestAlert;
 
   HomeLoaded copyWith({
     WeatherInfo? weather,
     bool? weatherLoading,
     String? weatherError,
     bool clearWeatherError = false,
+    CropScan? latestAlert,
+    bool clearLatestAlert = false,
   }) {
     return HomeLoaded(
       userName: userName,
@@ -73,7 +82,10 @@ class HomeLoaded extends HomeState {
       crops: crops,
       kisanBotAlert: kisanBotAlert,
       weatherLoading: weatherLoading ?? this.weatherLoading,
-      weatherError: clearWeatherError ? null : (weatherError ?? this.weatherError),
+      weatherError:
+          clearWeatherError ? null : (weatherError ?? this.weatherError),
+      latestAlert:
+          clearLatestAlert ? null : (latestAlert ?? this.latestAlert),
     );
   }
 
@@ -87,20 +99,31 @@ class HomeLoaded extends HomeState {
         kisanBotAlert,
         weatherLoading,
         weatherError,
+        latestAlert,
       ];
 }
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({WeatherRepository? weatherRepository})
-      : _weatherRepository = weatherRepository ?? WeatherRepository(),
+  HomeBloc({
+    WeatherRepository? weatherRepository,
+    ScanRepository? scanRepository,
+  })  : _weatherRepository = weatherRepository ?? WeatherRepository(),
+        _scanRepository = scanRepository ?? ScanRepository(),
         super(const HomeLoading()) {
     on<HomeStarted>(_onStarted);
     on<HomeWeatherRefreshRequested>(_onWeatherRefresh);
+    on<HomeRefreshScanAlert>(_onRefreshScanAlert);
   }
 
   final WeatherRepository _weatherRepository;
+  final ScanRepository _scanRepository;
 
   Future<void> _onStarted(HomeStarted event, Emitter<HomeState> emit) async {
+    CropScan? alert;
+    try {
+      alert = await _scanRepository.getLatestAlert();
+    } catch (_) {}
+
     emit(
       HomeLoaded(
         userName: DummyData.profile.name,
@@ -110,10 +133,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         crops: DummyData.crops,
         kisanBotAlert: DummyData.kisanBotAlert,
         weatherLoading: true,
+        latestAlert: alert,
       ),
     );
 
-    // Load with fallback coords until GPS arrives.
     await _loadWeather(
       emit,
       WeatherRepository.fallbackLat,
@@ -126,6 +149,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     await _loadWeather(emit, event.latitude, event.longitude);
+  }
+
+  Future<void> _onRefreshScanAlert(
+    HomeRefreshScanAlert event,
+    Emitter<HomeState> emit,
+  ) async {
+    final current = state;
+    if (current is! HomeLoaded) return;
+    try {
+      final alert = await _scanRepository.getLatestAlert();
+      emit(
+        current.copyWith(
+          latestAlert: alert,
+          clearLatestAlert: alert == null,
+        ),
+      );
+    } catch (_) {}
   }
 
   Future<void> _loadWeather(

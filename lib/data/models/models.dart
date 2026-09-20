@@ -95,18 +95,36 @@ enum ScanRisk { high, healthy, medium }
 
 class CropScan extends Equatable {
   const CropScan({
+    this.id,
     required this.crop,
     required this.diagnosis,
     required this.timeAgo,
     required this.risk,
     required this.emoji,
+    this.imagePath,
+    this.scientificName = '',
+    this.severity = '',
+    this.matchPercent = 0,
+    this.spread = '',
+    this.description = '',
+    this.treatments = const [],
+    this.createdAt,
   });
 
+  final int? id;
   final String crop;
   final String diagnosis;
   final String timeAgo;
   final ScanRisk risk;
   final String emoji;
+  final String? imagePath;
+  final String scientificName;
+  final String severity;
+  final int matchPercent;
+  final String spread;
+  final String description;
+  final List<TreatmentStep> treatments;
+  final DateTime? createdAt;
 
   String get riskLabel => switch (risk) {
         ScanRisk.high => 'High Risk',
@@ -114,8 +132,33 @@ class CropScan extends Equatable {
         ScanRisk.medium => 'Medium',
       };
 
+  DiseaseResult toDiseaseResult() => DiseaseResult(
+        name: diagnosis,
+        scientificName: scientificName,
+        severity: severity,
+        matchPercent: matchPercent,
+        spread: spread,
+        description: description,
+        treatments: treatments,
+      );
+
   @override
-  List<Object?> get props => [crop, diagnosis, timeAgo, risk, emoji];
+  List<Object?> get props => [
+        id,
+        crop,
+        diagnosis,
+        timeAgo,
+        risk,
+        emoji,
+        imagePath,
+        scientificName,
+        severity,
+        matchPercent,
+        spread,
+        description,
+        treatments,
+        createdAt,
+      ];
 }
 
 class TreatmentStep extends Equatable {

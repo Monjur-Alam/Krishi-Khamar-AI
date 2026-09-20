@@ -1,1 +1,1 @@
- /Users/periscopelabs/AndroidStudioProjects/krishikhamar/.dart_tool/flutter_build/14c43a300df185d010523c6b4814f50e/dart_build_result.json: 
+ /Users/periscopelabs/AndroidStudioProjects/krishikhamar/.dart_tool/flutter_build/14c43a300df185d010523c6b4814f50e/dart_build_result.json:  /Users/periscopelabs/AndroidStudioProjects/krishikhamar/.dart_tool/package_config.json /Users/periscopelabs/AndroidStudioProjects/krishikhamar/pubspec.yaml /Users/periscopelabs/Documents/flutter/bin/cache/dart-sdk/version

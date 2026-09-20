@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/widgets/app_bottom_nav.dart';
+import '../../../data/repositories/scan_repository.dart';
 import '../../../data/repositories/weather_repository.dart';
 import '../../chat/bloc/chat_bloc.dart';
 import '../../chat/ui/chat_page.dart';
@@ -22,6 +23,7 @@ class MainShellPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final weatherRepository = WeatherRepository();
+    final scanRepository = ScanRepository();
 
     return MultiBlocProvider(
       providers: [
@@ -30,11 +32,16 @@ class MainShellPage extends StatelessWidget {
           create: (_) => LocationCubit()..requestAndFetch(),
         ),
         BlocProvider(
-          create: (_) => HomeBloc(weatherRepository: weatherRepository)
-            ..add(const HomeStarted()),
+          create: (_) => HomeBloc(
+            weatherRepository: weatherRepository,
+            scanRepository: scanRepository,
+          )..add(const HomeStarted()),
         ),
         BlocProvider(create: (_) => ChatBloc()..add(const ChatStarted())),
-        BlocProvider(create: (_) => ScanBloc()..add(const ScanStarted())),
+        BlocProvider(
+          create: (_) => ScanBloc(scanRepository: scanRepository)
+            ..add(const ScanStarted()),
+        ),
         BlocProvider(
           create: (_) => WeatherBloc(weatherRepository: weatherRepository)
             ..add(const WeatherStarted()),
@@ -51,21 +58,33 @@ class _MainShellView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LocationCubit, LocationState>(
-      listenWhen: (previous, current) =>
-          current.hasFix &&
-          (previous.latitude != current.latitude ||
-              previous.longitude != current.longitude),
-      listener: (context, location) {
-        final lat = location.latitude!;
-        final lon = location.longitude!;
-        context.read<HomeBloc>().add(
-              HomeWeatherRefreshRequested(latitude: lat, longitude: lon),
-            );
-        context.read<WeatherBloc>().add(
-              WeatherRefreshRequested(latitude: lat, longitude: lon),
-            );
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<LocationCubit, LocationState>(
+          listenWhen: (previous, current) =>
+              current.hasFix &&
+              (previous.latitude != current.latitude ||
+                  previous.longitude != current.longitude),
+          listener: (context, location) {
+            final lat = location.latitude!;
+            final lon = location.longitude!;
+            context.read<HomeBloc>().add(
+                  HomeWeatherRefreshRequested(latitude: lat, longitude: lon),
+                );
+            context.read<WeatherBloc>().add(
+                  WeatherRefreshRequested(latitude: lat, longitude: lon),
+                );
+          },
+        ),
+        BlocListener<ScanBloc, ScanState>(
+          listenWhen: (previous, current) =>
+              previous.phase != ScanPhase.result &&
+              current.phase == ScanPhase.result,
+          listener: (context, state) {
+            context.read<HomeBloc>().add(const HomeRefreshScanAlert());
+          },
+        ),
+      ],
       child: BlocBuilder<NavigationCubit, NavState>(
         builder: (context, nav) {
           return Scaffold(

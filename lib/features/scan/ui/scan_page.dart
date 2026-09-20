@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,11 +15,22 @@ class ScanPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScanBloc, ScanState>(
+    return BlocConsumer<ScanBloc, ScanState>(
+      listenWhen: (p, c) => c.error != null && c.error != p.error,
+      listener: (context, state) {
+        final error = state.error;
+        if (error == null) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error)),
+        );
+      },
       builder: (context, state) {
         return switch (state.phase) {
           ScanPhase.idle => _ScanIdleView(state: state),
-          ScanPhase.analyzing => _AnalyzingView(progress: state.progress),
+          ScanPhase.analyzing => _AnalyzingView(
+              progress: state.progress,
+              previewBytes: state.previewBytes,
+            ),
           ScanPhase.result => _ResultView(result: state.result!),
         };
       },
@@ -206,12 +220,26 @@ class _ScanIdleView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            ...state.recentScans.map(
-              (s) => Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: _RecentScanTile(scan: s),
+            if (state.recentScans.isEmpty)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: const Text(
+                  'No scans yet. Capture a crop photo to get AI disease detection.',
+                  style: TextStyle(color: AppColors.textSecondary),
+                ),
+              )
+            else
+              ...state.recentScans.map(
+                (s) => Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: _RecentScanTile(scan: s),
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -226,73 +254,93 @@ class _RecentScanTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isHealthy = scan.risk == ScanRisk.healthy;
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.mint,
+    final imagePath = scan.imagePath;
+    return InkWell(
+      onTap: () => context.read<ScanBloc>().add(ScanRecentOpened(scan)),
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
               borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(scan.emoji, style: const TextStyle(fontSize: 24)),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  scan.crop,
-                  style: const TextStyle(fontWeight: FontWeight.w800),
-                ),
-                Text(
-                  '${scan.diagnosis} • ${scan.timeAgo}',
-                  style: const TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: isHealthy ? AppColors.successSoft : AppColors.dangerSoft,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              scan.riskLabel,
-              style: TextStyle(
-                color: isHealthy ? AppColors.success : AppColors.danger,
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
+              child: SizedBox(
+                width: 48,
+                height: 48,
+                child: imagePath != null && File(imagePath).existsSync()
+                    ? Image.file(File(imagePath), fit: BoxFit.cover)
+                    : ColoredBox(
+                        color: AppColors.mint,
+                        child: Center(
+                          child: Text(
+                            scan.emoji,
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                        ),
+                      ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    scan.crop,
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
+                  Text(
+                    '${scan.diagnosis} • ${scan.timeAgo}',
+                    style: const TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: isHealthy ? AppColors.successSoft : AppColors.dangerSoft,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                scan.riskLabel,
+                style: TextStyle(
+                  color: isHealthy ? AppColors.success : AppColors.danger,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 class _AnalyzingView extends StatelessWidget {
-  const _AnalyzingView({required this.progress});
+  const _AnalyzingView({
+    required this.progress,
+    this.previewBytes,
+  });
   final double progress;
+  final List<int>? previewBytes;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _DetectionHeader(onBack: () {}),
+        _DetectionHeader(
+          onBack: () =>
+              context.read<ScanBloc>().add(const ScanAnotherPressed()),
+        ),
         Expanded(
           child: ColoredBox(
             color: AppColors.mintSoft,
@@ -301,18 +349,29 @@ class _AnalyzingView extends StatelessWidget {
               child: Column(
                 children: [
                   const Spacer(),
-                  Container(
-                    width: 96,
-                    height: 96,
-                    decoration: BoxDecoration(
-                      color: AppColors.mint,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.primary, width: 2),
+                  if (previewBytes != null)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.memory(
+                        Uint8List.fromList(previewBytes!),
+                        width: 140,
+                        height: 140,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  else
+                    Container(
+                      width: 96,
+                      height: 96,
+                      decoration: BoxDecoration(
+                        color: AppColors.mint,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: AppColors.primary, width: 2),
+                      ),
+                      child: const Center(
+                        child: Text('🔬', style: TextStyle(fontSize: 40)),
+                      ),
                     ),
-                    child: const Center(
-                      child: Text('🔬', style: TextStyle(fontSize: 40)),
-                    ),
-                  ),
                   const SizedBox(height: 20),
                   const Text(
                     'Analyzing Crop...',

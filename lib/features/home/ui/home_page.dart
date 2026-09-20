@@ -68,6 +68,7 @@ class _HomeContent extends StatelessWidget {
               ),
               const SizedBox(height: 14),
               _DiseaseCard(
+                alert: data.latestAlert,
                 onTap: () => context.read<NavigationCubit>().setTab(2),
               ),
               const SizedBox(height: 18),
@@ -683,11 +684,13 @@ class _KisanBotCard extends StatelessWidget {
 }
 
 class _DiseaseCard extends StatelessWidget {
-  const _DiseaseCard({required this.onTap});
+  const _DiseaseCard({required this.onTap, this.alert});
   final VoidCallback onTap;
+  final CropScan? alert;
 
   @override
   Widget build(BuildContext context) {
+    final hasAlert = alert != null && alert!.risk != ScanRisk.healthy;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
@@ -747,7 +750,7 @@ class _DiseaseCard extends StatelessWidget {
                 Container(
                   width: 32,
                   height: 32,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: AppColors.mint,
                     shape: BoxShape.circle,
                   ),
@@ -763,13 +766,15 @@ class _DiseaseCard extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: AppColors.dangerSoft,
+                color: hasAlert ? AppColors.dangerSoft : AppColors.successSoft,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text(
-                '⚠️ Alert: Tomato Blight detected',
+              child: Text(
+                hasAlert
+                    ? '⚠️ Alert: ${alert!.crop} — ${alert!.diagnosis}'
+                    : '✅ No active disease alerts — tap to scan a crop',
                 style: TextStyle(
-                  color: AppColors.danger,
+                  color: hasAlert ? AppColors.danger : AppColors.success,
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                 ),
