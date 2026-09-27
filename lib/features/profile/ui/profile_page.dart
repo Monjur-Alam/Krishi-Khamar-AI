@@ -21,9 +21,6 @@ class ProfilePage extends StatelessWidget {
         if (profile == null) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (state.showSettings) {
-          return _SettingsView(profile: profile);
-        }
         return _ProfileMainView(profile: profile);
       },
     );
@@ -132,213 +129,165 @@ class _ProfileMainView extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                color: AppColors.primary,
-                padding: const EdgeInsets.only(bottom: 72),
-                child: SafeArea(
-                  bottom: false,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 4, 8, 20),
-                    child: Column(
+          child: Container(
+            color: AppColors.primary,
+            child: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 20),
+                child: Column(
+                  children: [
+                    Row(
                       children: [
-                        Row(
+                        IconButton(
+                          onPressed: () {},
+                          icon: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white38),
+                            ),
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            l10n.myProfile,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 48),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const SizedBox(width: 8),
+                        Stack(
                           children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white38),
-                                ),
-                                child: const Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
-                                  size: 18,
-                                ),
+                            const CircleAvatar(
+                              radius: 40,
+                              backgroundColor: Colors.white24,
+                              child: AppSvgIcon(
+                                AppIcons.user,
+                                size: 40,
+                                color: Colors.white,
                               ),
                             ),
-                            Expanded(
-                              child: Text(
-                                l10n.myProfile,
-                                textAlign: TextAlign.center,
+                            Positioned(
+                              right: 0,
+                              bottom: 2,
+                              child: Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: const BoxDecoration(
+                                  color: AppColors.yellow,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(Icons.check, size: 12),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                profile.name,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w800,
-                                  fontSize: 18,
+                                  fontSize: 20,
                                 ),
                               ),
-                            ),
-                            IconButton(
-                              onPressed: () => context
-                                  .read<ProfileBloc>()
-                                  .add(const ProfileShowSettings()),
-                              icon: Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white38),
-                                ),
-                                child: const Icon(
-                                  Icons.edit,
+                              const SizedBox(height: 4),
+                              Text(
+                                profile.phone,
+                                style: const TextStyle(
                                   color: Colors.white,
-                                  size: 18,
+                                  fontSize: 14,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            const SizedBox(width: 8),
-                            Stack(
-                              children: [
-                                const CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: Colors.white24,
-                                  child: AppSvgIcon(
-                                    AppIcons.user,
-                                    size: 40,
-                                    color: Colors.white,
-                                  ),
+                              const SizedBox(height: 4),
+                              LocationLabel(
+                                fallback: profile.location,
+                                compact: true,
+                              ),
+                              const SizedBox(height: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
                                 ),
-                                Positioned(
-                                  right: 0,
-                                  bottom: 2,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(3),
-                                    decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
+                                  color: Colors.black26,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
                                       color: AppColors.yellow,
-                                      shape: BoxShape.circle,
+                                      size: 14,
                                     ),
-                                    child: const Icon(Icons.check, size: 12),
-                                  ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      l10n.verifiedFarmer,
+                                      style: const TextStyle(
+                                        color: AppColors.yellow,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    profile.name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    profile.phone,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  LocationLabel(
-                                    fallback: profile.location,
-                                    compact: true,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 4,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.black26,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Icon(
-                                          Icons.star,
-                                          color: AppColors.yellow,
-                                          size: 14,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          l10n.verifiedFarmer,
-                                          style: const TextStyle(
-                                            color: AppColors.yellow,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            _Stat(
-                              value: profile.farmArea,
-                              label: l10n.farmArea,
-                            ),
-                            _Stat(
-                              value: profile.activeCrops,
-                              label: l10n.crops,
-                            ),
-                            _Stat(
-                              value: profile.memberSince,
-                              label: l10n.memberSince,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        _Stat(
+                          value: profile.farmArea,
+                          label: l10n.farmArea,
+                        ),
+                        _Stat(
+                          value: profile.activeCrops,
+                          label: l10n.crops,
+                        ),
+                        _Stat(
+                          value: profile.memberSince,
+                          label: l10n.memberSince,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              Positioned(
-                left: 16,
-                right: 16,
-                bottom: 0,
-                child: _CreditCard(profile: profile),
-              ),
-            ],
+            ),
           ),
         ),
         SliverPadding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
-              _MenuCard(
-                children: [
-                  _MenuTile(
-                    icon: Icons.language,
-                    iconBg: const Color(0xFFE3F2FD),
-                    iconColor: Colors.blue,
-                    title: l10n.language,
-                    subtitle: languageLabel,
-                    onTap: () => _showLanguageSheet(context),
-                  ),
-                ],
-              ),
+              _CreditCard(profile: profile),
               const SizedBox(height: 16),
-              Text(
-                l10n.farmDetails,
-                style: const TextStyle(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 12,
-                  letterSpacing: 0.8,
-                ),
-              ),
-              const SizedBox(height: 8),
+              _SectionLabel(l10n.farmDetails),
               _MenuCard(
                 children: [
                   _MenuTile(
@@ -368,16 +317,82 @@ class _ProfileMainView extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              TextButton(
-                onPressed: () => context
-                    .read<ProfileBloc>()
-                    .add(const ProfileShowSettings()),
-                child: Text(
-                  l10n.moreSettings,
-                  style: const TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
+              _SectionLabel(l10n.preferences),
+              _MenuCard(
+                children: [
+                  _MenuTile(
+                    iconWidget: const AppSvgIcon(
+                      AppIcons.bell,
+                      size: 20,
+                      color: Colors.purple,
+                    ),
+                    iconBg: const Color(0xFFF3E5F5),
+                    iconColor: Colors.purple,
+                    title: l10n.notifications,
+                    subtitle: l10n.enabled,
                   ),
+                  Divider(height: 1, color: Colors.grey.shade200),
+                  _MenuTile(
+                    icon: Icons.language,
+                    iconBg: const Color(0xFFE3F2FD),
+                    iconColor: Colors.blue,
+                    title: l10n.language,
+                    subtitle: languageLabel,
+                    onTap: () => _showLanguageSheet(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              _SectionLabel(l10n.security),
+              _MenuCard(
+                children: [
+                  _MenuTile(
+                    icon: Icons.shield_outlined,
+                    iconBg: const Color(0xFFE8F5E9),
+                    iconColor: AppColors.primary,
+                    title: l10n.privacySettings,
+                  ),
+                  Divider(height: 1, color: Colors.grey.shade200),
+                  _MenuTile(
+                    icon: Icons.help_outline,
+                    iconBg: const Color(0xFFE0F2F1),
+                    iconColor: Colors.teal,
+                    title: l10n.helpSupport,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              OutlinedButton.icon(
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/login',
+                    (_) => false,
+                  );
+                },
+                icon: const Icon(Icons.logout, color: AppColors.danger),
+                label: Text(
+                  l10n.logout,
+                  style: const TextStyle(
+                    color: AppColors.danger,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: AppColors.dangerSoft,
+                  side: const BorderSide(color: AppColors.danger),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                l10n.madeWithLove,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: AppColors.textSecondary,
+                  fontSize: 12,
                 ),
               ),
             ]),
@@ -490,154 +505,6 @@ class _CreditCard extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _SettingsView extends StatelessWidget {
-  const _SettingsView({required this.profile});
-  final UserProfile profile;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final languageLabel = context.watch<LocaleCubit>().languageLabel;
-
-    return ColoredBox(
-      color: AppColors.mintSoft,
-      child: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-          children: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () => context
-                      .read<ProfileBloc>()
-                      .add(const ProfileShowMain()),
-                  icon: const Icon(Icons.arrow_back),
-                ),
-                Text(
-                  l10n.settings,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            _SectionLabel(l10n.farmDetails),
-            _MenuCard(
-              children: [
-                _MenuTile(
-                  icon: Icons.map_outlined,
-                  iconBg: const Color(0xFFE3F2FD),
-                  iconColor: Colors.blue,
-                  title: l10n.farmLocation,
-                  subtitleWidget: LocationLabel(
-                    fallback: profile.location,
-                    compact: true,
-                    iconColor: AppColors.textSecondary,
-                    style: const TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                Divider(height: 1, color: Colors.grey.shade200),
-                _MenuTile(
-                  icon: Icons.star_outline,
-                  iconBg: const Color(0xFFFFF3E0),
-                  iconColor: Colors.orange,
-                  title: l10n.cropProfile,
-                  subtitle: profile.crops,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _SectionLabel(l10n.preferences),
-            _MenuCard(
-              children: [
-                _MenuTile(
-                  iconWidget: const AppSvgIcon(
-                    AppIcons.bell,
-                    size: 20,
-                    color: Colors.purple,
-                  ),
-                  iconBg: const Color(0xFFF3E5F5),
-                  iconColor: Colors.purple,
-                  title: l10n.notifications,
-                  subtitle: l10n.enabled,
-                ),
-                Divider(height: 1, color: Colors.grey.shade200),
-                _MenuTile(
-                  icon: Icons.language,
-                  iconBg: const Color(0xFFE3F2FD),
-                  iconColor: Colors.blue,
-                  title: l10n.language,
-                  subtitle: languageLabel,
-                  onTap: () => _showLanguageSheet(context),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _SectionLabel(l10n.security),
-            _MenuCard(
-              children: [
-                _MenuTile(
-                  icon: Icons.shield_outlined,
-                  iconBg: const Color(0xFFE8F5E9),
-                  iconColor: AppColors.primary,
-                  title: l10n.privacySettings,
-                ),
-                Divider(height: 1, color: Colors.grey.shade200),
-                _MenuTile(
-                  icon: Icons.help_outline,
-                  iconBg: const Color(0xFFE0F2F1),
-                  iconColor: Colors.teal,
-                  title: l10n.helpSupport,
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            OutlinedButton.icon(
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/login',
-                  (_) => false,
-                );
-              },
-              icon: const Icon(Icons.logout, color: AppColors.danger),
-              label: Text(
-                l10n.logout,
-                style: const TextStyle(
-                  color: AppColors.danger,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              style: OutlinedButton.styleFrom(
-                backgroundColor: AppColors.dangerSoft,
-                side: const BorderSide(color: AppColors.danger),
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              l10n.madeWithLove,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: AppColors.textSecondary,
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

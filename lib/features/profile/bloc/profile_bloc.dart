@@ -14,47 +14,23 @@ class ProfileStarted extends ProfileEvent {
   const ProfileStarted();
 }
 
-class ProfileShowSettings extends ProfileEvent {
-  const ProfileShowSettings();
-}
-
-class ProfileShowMain extends ProfileEvent {
-  const ProfileShowMain();
-}
-
 class ProfileState extends Equatable {
-  const ProfileState({
-    this.profile,
-    this.showSettings = false,
-  });
+  const ProfileState({this.profile});
 
   final UserProfile? profile;
-  final bool showSettings;
 
-  ProfileState copyWith({
-    UserProfile? profile,
-    bool? showSettings,
-  }) {
-    return ProfileState(
-      profile: profile ?? this.profile,
-      showSettings: showSettings ?? this.showSettings,
-    );
+  ProfileState copyWith({UserProfile? profile}) {
+    return ProfileState(profile: profile ?? this.profile);
   }
 
   @override
-  List<Object?> get props => [profile, showSettings];
+  List<Object?> get props => [profile];
 }
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(const ProfileState()) {
     on<ProfileStarted>((event, emit) {
       emit(const ProfileState(profile: DummyData.profile));
-    });
-    on<ProfileShowSettings>((event, emit) {
-      emit(state.copyWith(showSettings: true));
-    });
-    on<ProfileShowMain>((event, emit) {
-      emit(state.copyWith(showSettings: false));
     });
   }
 }
